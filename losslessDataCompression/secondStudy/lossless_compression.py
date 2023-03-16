@@ -8,9 +8,15 @@ logging.basicConfig(level = logging.INFO)
 
 # dataset location
 DAILY_MINIMUM_TEMPERATURE_DATASET_PATH = "../../datasets/timeseries/daily-minimum-temperatures-in-me.csv"
+ELETRIC_PRODUCTION_DATASET_PATH = "../../datasets/timeseries/Electric_Production.csv"
+MONTHLY_BEER_PRODUCTION_DATASET_PATH = "../../datasets/timeseries/monthly-beer-production-in-austr.csv"
+SALES_OF_SHAMPOO_DATASET_PATH = "../../datasets/timeseries/sales-of-shampoo-over-a-three-ye.csv"
 
 # output file
 ENCODED_DATASET_PATH = "../../encoded_dataset.csv"
+
+#Window Size
+WINDOW_SIZE = 400
 
 # Convert a datetime to millis 
 def convertDatetimeToMillis(time):
@@ -19,7 +25,7 @@ def convertDatetimeToMillis(time):
 start_date = datetime.now()
 ds_original_size = os.path.getsize(DAILY_MINIMUM_TEMPERATURE_DATASET_PATH)
 
-LZ77Compressor(400).compress(DAILY_MINIMUM_TEMPERATURE_DATASET_PATH, ENCODED_DATASET_PATH)
+LZ77Compressor(WINDOW_SIZE).compress(ELETRIC_PRODUCTION_DATASET_PATH, ENCODED_DATASET_PATH)
 
 ds_final_size = os.path.getsize(ENCODED_DATASET_PATH)
 difference_percentage = 100 - round(float(ds_final_size * 100 / ds_original_size), 1)
