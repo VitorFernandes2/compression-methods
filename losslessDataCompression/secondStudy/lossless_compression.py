@@ -2,6 +2,7 @@ from datetime import datetime
 import logging
 import os
 from LZ77 import LZ77Compressor
+from LZ78 import LZ78Compressor
 
 # logging config
 logging.basicConfig(level = logging.INFO)
@@ -22,10 +23,13 @@ WINDOW_SIZE = 400
 def convertDatetimeToMillis(time):
     return float(time * 1000)
 
-start_date = datetime.now()
-ds_original_size = os.path.getsize(DAILY_MINIMUM_TEMPERATURE_DATASET_PATH)
+ORIGINAL_DATASET = DAILY_MINIMUM_TEMPERATURE_DATASET_PATH
 
-LZ77Compressor(WINDOW_SIZE).compress(ELETRIC_PRODUCTION_DATASET_PATH, ENCODED_DATASET_PATH)
+start_date = datetime.now()
+ds_original_size = os.path.getsize(ORIGINAL_DATASET)
+
+# LZ77Compressor(WINDOW_SIZE).compress(ORIGINAL_DATASET, ENCODED_DATASET_PATH)
+LZ78Compressor().compress(ORIGINAL_DATASET, ENCODED_DATASET_PATH)
 
 ds_final_size = os.path.getsize(ENCODED_DATASET_PATH)
 difference_percentage = 100 - round(float(ds_final_size * 100 / ds_original_size), 1)
