@@ -1,28 +1,36 @@
 import numpy as np
+import time as time
+import utils.DatasetOperations as ds_utils
+import utils.DatasetsConstants as constants
+import os
 from scipy.fftpack import dct, idct
+
 
 def dct2(block):
     return dct(dct(block, axis=0, norm='ortho'), axis=1, norm='ortho')
 
+
 def idct2(coefficients):
     return idct(idct(coefficients, axis=0, norm='ortho'), axis=1, norm='ortho')
 
-# Example usage
-block = np.array([[154, 123, 123, 123, 123, 123, 123, 136],
-                  [192, 180, 136, 154, 154, 154, 136, 110],
-                  [254, 198, 154, 154, 180, 154, 123, 123],
-                  [239, 180, 136, 180, 180, 166, 123, 123],
-                  [180, 154, 136, 167, 166, 149, 136, 136],
-                  [128, 136, 123, 136, 154, 180, 198, 154],
-                  [123, 105, 110, 149, 136, 136, 180, 166],
-                  [110, 136, 123, 123, 123, 136, 154, 136]])
 
+original_ds = os.getcwd() + constants.TIMESERIES_DAILY_MINIMUM_PATH
+
+ds = ds_utils.convertDateColumnToTimeseries(
+    0, 1, ds_utils.readNumberArrayFromDataset(original_ds))
+block = np.array(ds)
+
+start_time = time.time()
 dct_block = dct2(block)
-reconstructed_block = idct2(dct_block)
+total_time = time.time() - start_time
 
-print("Original Block:")
-print(block)
-print("\nDCT Coefficients:")
-print(dct_block)
+print("Took: ", total_time)
+print("In Memory Size saved:", ds_utils.commpareSizes(block, dct_block))
+compressed_filename = "compressed_ds.csv"
+ds_utils.saveDatasetInFile(compressed_filename, dct_block)
+
+print("DS size difference is ", ds_utils.commpareSizes(original_ds, compressed_filename), " MB")
+
 print("\nReconstructed Block:")
+reconstructed_block = idct2(dct_block)
 print(reconstructed_block.round().astype(int))
