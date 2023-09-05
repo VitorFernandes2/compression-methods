@@ -14,8 +14,8 @@ def readNumberArrayFromDataset(path):
     ds = pd.read_csv(path)
     return ds.values
 
-def convertDateColumnToTimeseries(date_column, data_column, dataset):
-    return [[int(time.mktime(datetime.strptime(row[date_column], "%m/%d/%Y").timetuple())), int(row[data_column] * 100)] for row in dataset]
+def convertDateColumnToTimeseries(date_column, data_column, dataset, format="%m/%d/%Y"):
+    return [[int(time.mktime(datetime.strptime(row[date_column], format).timetuple())), int(row[data_column] * 100)] for row in dataset]
 
 def commpareSizes(original_ds, compressed_ds):
     size = sys.getsizeof(original_ds) - sys.getsizeof(compressed_ds)
