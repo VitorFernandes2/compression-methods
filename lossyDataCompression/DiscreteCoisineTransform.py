@@ -5,7 +5,6 @@ import utils.DatasetsConstants as constants
 import os
 from scipy.fftpack import dct, idct
 
-
 def dct2(block):
     return dct(dct(block, axis=0, norm='ortho'), axis=1, norm='ortho')
 
