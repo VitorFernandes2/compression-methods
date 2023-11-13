@@ -13,10 +13,10 @@ def idct2(coefficients):
     return idct(idct(coefficients, axis=0, norm='ortho'), axis=1, norm='ortho')
 
 
-original_ds = os.getcwd() + constants.TIMESERIES_DAILY_MINIMUM_PATH
+original_ds = os.getcwd() + constants.TIMESERIES_MONTHLY_BEER_PRODUCTION_PATH
 
 ds = ds_utils.convertDateColumnToTimeseries(
-    0, 1, ds_utils.readNumberArrayFromDataset(original_ds))
+    0, 1, ds_utils.readNumberArrayFromDataset(original_ds), format="%Y-%d")
 block = np.array(ds)
 
 start_time = time.time()
@@ -30,6 +30,6 @@ ds_utils.saveDatasetInFile(compressed_filename, dct_block)
 
 print("DS size difference is ", ds_utils.commpareSizes(original_ds, compressed_filename), " MB")
 
-print("\nReconstructed Block:")
-reconstructed_block = idct2(dct_block)
-print(reconstructed_block.round().astype(int))
+# print("\nReconstructed Block:")
+# reconstructed_block = idct2(dct_block)
+# print(reconstructed_block.round().astype(int))

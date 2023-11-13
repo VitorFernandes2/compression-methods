@@ -15,7 +15,7 @@ TIMESERIES_SALES_OF_SHAMPOO_PATH = DATASET_TIMESERIES_PATH + \
     "/sales-of-shampoo-over-a-three-ye.csv"
 
 # Other Datasets
-TIMESERIES_SALES_OF_SHAMPOO_PATH = DATASET_PATH + \
+TIMESERIES_ACCELEROMETER = DATASET_PATH + \
     "/accelerometer.csv"
 TIMESERIES_IOT_TEMP_PATH = DATASET_PATH + \
     "/IOT-temp.csv"

@@ -3,7 +3,7 @@ def delta_encode_string(data):
 
     for i in range(1, len(data)):
         diff = ord(data[i]) - ord(data[i-1])  # Calculate the character difference
-        encoded_data.append(diff)
+        encoded_data.append(str(diff))
 
     return encoded_data
 
@@ -16,10 +16,3 @@ def delta_decode_string(encoded_data):
         data.append(char)
 
     return ''.join(data)
-
-data = "abracadabra"
-encoded_data = delta_encode_string(data)
-print("Encoded data:", encoded_data)
-
-decoded_data = delta_decode_string(encoded_data)
-print("Decoded data:", decoded_data)
