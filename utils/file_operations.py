@@ -1,6 +1,12 @@
 import struct, os
 from typing import List
 
+def save_string_array_in_binary_file(encoded_data, file_path):
+    with open(file_path, "wb") as file:
+        for line in encoded_data:
+            line_bytes = "".join(line).encode('utf-8')
+            file.write(line_bytes)
+
 def save_to_binary_file(encoded_data, file_path):
     with open(file_path, 'wb') as file:
         file.write(encoded_data.encode('utf-8'))
