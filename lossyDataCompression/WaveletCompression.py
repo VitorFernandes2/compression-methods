@@ -1,7 +1,7 @@
 import numpy as np
 import pywt
 import os
-import utils.DatasetOperations as ds_utils
+import utils.dataset_operations as ds_utils
 import utils.DatasetsConstants as constants
 
 def wavelet_compression(data, wavelet='haar', level=1, threshold=0.1):

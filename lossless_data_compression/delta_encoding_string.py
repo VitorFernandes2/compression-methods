@@ -1,18 +1,36 @@
-def delta_encode_string(data):
-    encoded_data = [data[0]]  # Start with the first character as it is
+def delta_encode_strings(strings):
+    deltas = []
+    previous_string = strings[0]
 
-    for i in range(1, len(data)):
-        diff = ord(data[i]) - ord(data[i-1])  # Calculate the character difference
-        encoded_data.append(str(diff))
+    for current_string in strings[1:]:
+        delta = ""
+        min_len = min(len(previous_string), len(current_string))
 
-    return encoded_data
+        for i in range(min_len):
+            if previous_string[i] != current_string[i]:
+                delta += current_string[i]
+            else:
+                delta += '\0'  # Placeholder for unchanged characters
 
-def delta_decode_string(encoded_data):
-    data = [encoded_data[0]]  # Start with the first character as it is
+        if len(current_string) > len(previous_string):
+            delta += current_string[min_len:]
+        deltas.append(delta)
+        previous_string = current_string
 
-    for i in range(1, len(encoded_data)):
-        char_code = ord(data[i-1]) + encoded_data[i]  # Add the character difference to the previous character's code
-        char = chr(char_code)  # Convert the character code back to a character
-        data.append(char)
+    return deltas
 
-    return ''.join(data)
+def delta_decode_strings(encoded_strings):
+    decoded_strings = []
+    previous_string = ''
+
+    for delta in encoded_strings:
+        current_string = ""
+        for char in delta:
+            if char == '\0':
+                current_string += previous_string[len(current_string)]
+            else:
+                current_string += char
+        decoded_strings.append(current_string)
+        previous_string = current_string
+
+    return decoded_strings

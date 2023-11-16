@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from sklearn.decomposition import PCA
 import os
-import utils.DatasetOperations as ds_utils
+import utils.dataset_operations as ds_utils
 import utils.DatasetsConstants as constants
 
 original_ds = os.getcwd() + constants.TIMESERIES_DAILY_MINIMUM_PATH

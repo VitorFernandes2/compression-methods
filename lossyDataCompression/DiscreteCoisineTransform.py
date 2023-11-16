@@ -1,6 +1,6 @@
 import numpy as np
 import time as time
-import utils.DatasetOperations as ds_utils
+import utils.dataset_operations as ds_utils
 import utils.DatasetsConstants as constants
 import os
 from scipy.fftpack import dct, idct
