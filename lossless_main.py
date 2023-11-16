@@ -1,4 +1,4 @@
-import utils.DatasetsConstants as constants
+import utils.datasets_constants as constants
 from lossless_data_compression import delta_encoding_string
 import os
 import utils.file_operations as file_operations

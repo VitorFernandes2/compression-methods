@@ -1,6 +1,6 @@
 import numpy as np
 import utils.dataset_operations as ds_utils
-import utils.DatasetsConstants as constants
+import utils.datasets_constants as constants
 import os
 
 # Generate a synthetic 2D numeric dataset

@@ -1,4 +1,4 @@
-import struct, os
+import struct, os, pickle
 from typing import List
 
 def save_string_array_in_binary_file(encoded_data, file_path):
@@ -10,6 +10,10 @@ def save_string_array_in_binary_file(encoded_data, file_path):
 def save_to_binary_file(encoded_data, file_path):
     with open(file_path, 'wb') as file:
         file.write(encoded_data.encode('utf-8'))
+        
+def save_list_to_binary_file(encoded_data, file_path):
+    with open(file_path, 'wb') as file:
+        pickle.dump(encoded_data, file)
         
 def save_num_array_to_binary_file(encoded_data: List[int], file_path):
     binary_data = struct.pack('i' * len(encoded_data), *encoded_data)

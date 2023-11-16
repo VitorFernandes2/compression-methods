@@ -1,4 +1,4 @@
-def lz78_compress(data):
+def compress(data):
     dictionary = {0: ''}
     compressed_data = []
     current_phrase = ''
@@ -19,7 +19,7 @@ def lz78_compress(data):
     return compressed_data
 
 
-def lz78_decompress(compressed_data):
+def decompress(compressed_data):
     dictionary = {0: ''}
     decompressed_data = []
 
@@ -33,11 +33,3 @@ def lz78_decompress(compressed_data):
         dictionary[len(dictionary)] = phrase
 
     return ''.join(decompressed_data)
-
-# Example usage
-data = "abracadabra"
-compressed_data = lz78_compress(data)
-print("Compressed data:", compressed_data)
-
-decompressed_data = lz78_decompress(compressed_data)
-print("Decompressed data:", decompressed_data)

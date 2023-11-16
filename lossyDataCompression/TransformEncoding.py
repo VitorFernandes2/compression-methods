@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn.decomposition import PCA
 import os
 import utils.dataset_operations as ds_utils
-import utils.DatasetsConstants as constants
+import utils.datasets_constants as constants
 
 original_ds = os.getcwd() + constants.TIMESERIES_DAILY_MINIMUM_PATH
 ds = ds_utils.convertDateColumnToTimeseries(

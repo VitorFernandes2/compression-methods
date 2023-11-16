@@ -9,8 +9,6 @@ TIMESERIES_ELETRIC_PRODUCTION_PATH = DATASET_TIMESERIES_PATH + \
     "/Electric_Production.csv"
 TIMESERIES_MONTHLY_BEER_PRODUCTION_PATH = DATASET_TIMESERIES_PATH + \
     "/monthly-beer-production-in-austr.csv"
-TIMESERIES_MONTHLY_BEER_PRODUCTION_PATH = DATASET_TIMESERIES_PATH + \
-    "/monthly-beer-production-in-austr.csv"
 TIMESERIES_SALES_OF_SHAMPOO_PATH = DATASET_TIMESERIES_PATH + \
     "/sales-of-shampoo-over-a-three-ye.csv"
 
