@@ -3,3 +3,5 @@ encoded_dataset.csv
 **/.vscode/
 **/compressed_ds.csv
 **/output
+**/datasets/audio
+**/datasets/images
