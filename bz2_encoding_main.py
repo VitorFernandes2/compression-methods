@@ -22,6 +22,7 @@ for original_filepath in file_paths:
     size_diff, percentage_diff = file_operations.compare_file_sizes(
         original_filepath, OUTPUT_FILENAME)
     
+    print("Dataset:", original_filepath.replace(os.getcwd(), ''))
     print("Took: ", total_time)
     print("Size difference:", size_diff, "MB")
-    print("Percentage difference:", percentage_diff, "%\n ")
+    print("Percentage difference:", 100 - percentage_diff, "%\n ")

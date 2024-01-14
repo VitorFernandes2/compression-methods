@@ -4,7 +4,6 @@ import utils.datasets_constants as constants
 from sklearn.random_projection import GaussianRandomProjection
 import utils.file_operations as file_operations
 import pandas as pd
-from sklearn.decomposition import PCA
 
 base_path = os.getcwd()
 
@@ -18,6 +17,12 @@ file_paths = [
 ]
 OUTPUT_FILENAME = "compressed_ds.csv"
 timeseries_columns = ["Month", "Date", "DATE", "noted_date"]
+timeseries_dictionary = {
+    "Month": "%Y-%d", 
+    "Date": "%d/%m/%Y", 
+    "DATE": "%m/%d/%Y", 
+    "noted_date": "%d-%m-%Y %H:%M"
+}
 columns_to_drop = ["id","room_id/id","out/in"]
 
 for file_path in file_paths:
@@ -40,10 +45,10 @@ for file_path in file_paths:
     
     # Start compression
     start_time = time.time()
-
-    pca = PCA(n_components=n_components)
-    compressed_data = pca.fit_transform(df)
     
+    random_projection = GaussianRandomProjection(n_components=n_components, random_state=42)
+    compressed_data = random_projection.fit_transform(df)
+
     # End Compression
     total_time = time.time() - start_time
 
