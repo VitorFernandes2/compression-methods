@@ -3,7 +3,8 @@ import time as time
 import utils.datasets_constants as constants
 import utils.file_operations as file_operations
 import pandas as pd
-from sklearn.decomposition import PCA
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
 
 base_path = os.getcwd()
 
@@ -19,6 +20,9 @@ OUTPUT_FILENAME = "compressed_ds.csv"
 timeseries_columns = ["Month", "Date", "DATE", "noted_date"]
 columns_to_drop = ["id","room_id/id","out/in"]
 
+# Fit a linear regression model
+model = LinearRegression()
+    
 for file_path in file_paths:
     original_df = pd.DataFrame(pd.read_csv(file_path))
     df = original_df.copy() # Clone the original dataframe
@@ -33,21 +37,26 @@ for file_path in file_paths:
             min_datetime = df[col].min()
             df[col] = (df[col] - min_datetime).dt.total_seconds()
 
-    # Apply random projection for compression
-    ds_num_columns = df.shape[1]
-    n_components = ds_num_columns // 4 if ds_num_columns // 4 > 0 else 1  # Number of dimensions after compression
-    
     # Start compression
     start_time = time.time()
 
-    pca = PCA(n_components=n_components)
-    compressed_data = pca.fit_transform(df)
+    # Split the data into training and testing sets
+    X_train, X_test = train_test_split(df, test_size=0.2, random_state=42)
+    # Fit a linear regression model
+    model.fit(X_train, X_train)
+    
+    # Use the model to reconstruct the dataset
+    compressed_data = model.predict(X_test)
     
     # End Compression
     total_time = time.time() - start_time
 
     # Display the compressed dataset
-    compressed_df = pd.DataFrame(data=compressed_data, columns=[f'feature_{i+1}' for i in range(n_components)])
+    compressed_df = pd.DataFrame(data=compressed_data)
+    
+    # Reduce the decimal cases to two decimal cases 
+    for column in compressed_df.select_dtypes(include='number').columns:
+        compressed_df[column] = compressed_df[column].round(decimals=2)
     
     # Concatenate the droped fields if exists
     for column_name in columns_to_drop:
